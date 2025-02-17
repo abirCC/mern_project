@@ -17,14 +17,21 @@ const mongoDB = async () => {
 
         // Access a specific collection (optional)
         const collection = database.collection("food_items");
+        const foodCategory = database.collection("foodCategory");
         console.log("Database and collection ready for operations.");
 
           // Perform any operations here...
           // Fetch data (e.g., find all documents)
-          const data = await collection.find({}).toArray();
+          const data = await collection.find({}).toArray({});
+          const foodscat = await foodCategory.find({}).toArray({});
 
           // Print the fetched data
           //console.log("Fetched Data:", data);
+          global.food_items = data;
+          global.foodCategory = foodscat;
+
+          console.log("Fetched Data:", global.food_items);
+          console.log("Fetched category:", global.foodCategory);
     } catch (error) {
         console.error("Error connecting to MongoDB:", error);
     } finally {
